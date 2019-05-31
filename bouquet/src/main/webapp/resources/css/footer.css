@@ -1,0 +1,23 @@
+.footer_line {
+	/*border: 1px solid black;*/
+	width: 100%;
+	height: auto;
+	background-color: #FFFFF6;
+}
+
+.footer_content {
+	width: 1440px;
+	/*border: 1px solid black;*/
+	text-align: center;
+	margin: 0 auto;
+	padding-top: 10px;
+}
+
+.footer_content>span {
+	display: inline-block;
+	padding-right: 8px;
+	line-height: 20px;
+	font-size: 11px;
+	color: #b9b9b9;
+	letter-spacing: 0.2px;
+}
