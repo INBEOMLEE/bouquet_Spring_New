@@ -12,7 +12,7 @@
 <head>
 <meta charset="UTF-8">
 <title>BOUQUET : 게시글 수정</title>
-<script type="text/javascript" src="${path}/smarteditor/js/service/HuskyEZCreator.js" charset="utf-8"></script>
+<script type="text/javascript" src="resources/smarteditor/js/service/HuskyEZCreator.js" charset="utf-8"></script>
 <style type="text/css">
 	section {
 		width: 100%;

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="${path}/css/common.css?v=1">
+<link rel="stylesheet" href="resources/css/common.css?v=1">
 <title>BOUQUET : 동의페이지</title>
 <style type="text/css">
 	body, h1, ul, p, h3 {
@@ -41,7 +41,7 @@
 		display: block;
 		width: 240px;
 		height: 107px;
-		background: url("${path}/img/free_horizontal_on_white_by_logaster(2).png");
+		background: url("resources/img/free_horizontal_on_white_by_logaster(2).png");
 		margin: auto;
 		box-sizing: border-box;
 	}
@@ -60,7 +60,7 @@
 		border: 1px solid #ccc;
 	}
 	.lang > select {
-		background: url('${path}/img/sel_arr.gif') 100% 50% no-repeat;
+		background: url('resources/img/sel_arr.gif') 100% 50% no-repeat;
 		-webkit-appearance: none;
 		width: 98px;
 		height: 30px;
@@ -95,7 +95,7 @@
 		position: relative;
 	}
 	.terms_span > label {
-		background: url('${path}/img/check_off.gif') 100% 50% no-repeat;
+		background: url('resources/img/check_off.gif') 100% 50% no-repeat;
 		display: block;
 		line-height: 20px;
 		height: 58px;
@@ -109,7 +109,7 @@
 		height: 58px;
 	}
 	.terms_span > input:checked + label {
-		background-image: url('${path}/img/check_on.png');
+		background-image: url('resources/img/check_on.png');
 	}
 	.terms_ul {
 		padding-bottom: 7px;
@@ -153,11 +153,11 @@
 		top: 50%;
 	}
 	.ul_li_span > label {
-		background: url('${path}/img/check_off.gif') 100% 50% no-repeat;
+		background: url('resources/img/check_off.gif') 100% 50% no-repeat;
 		display: block;
 	}
 	.ul_li_span > input:checked +label {
-		background-image: url('${path}/img/check_on.png');
+		background-image: url('resources/img/check_on.png');
 	}
 
 	.terms_box {
