@@ -153,17 +153,17 @@ function ajaxCheck(memId) {
 	//     데이터 전달방법 : POST방식
 	//   → 결과적으로 web.xml로 이동!
 	$.ajax({
-		url: "idCheck.bouquet",
+		url: "idcheck",
 		type: "POST",
 		dataType: "json",
 		data: "id="+memId,
 		async: false,
 		// 29. Action단에서 전송한 message와 id를 data 매개변수로 받음
 		success: function(data){
-			
+			console.log(data);
 			// 30. data.message의 값이 -1이면 → 중복 메시지 출력
 			//     data.message의 값이 1이면 → 사용 가능 메시지 출력
-			if(data.message == "-1") {
+			if(data == 1) {
 				$('.member_err_msg').eq(0).text('이미 사용 중인 아이디입니다.')
 								   .css('display', 'block')
 								   .css('color', 'tomato');

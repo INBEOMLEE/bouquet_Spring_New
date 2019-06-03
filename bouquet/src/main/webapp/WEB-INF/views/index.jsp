@@ -83,18 +83,18 @@
 		<div class="content_outline">
 			<div class="content_inline">
 				<div class="content_img">
-					<img src="resources/img/main01.jpg">
+					<img src="${path}/resources/img/main01.jpg">
 				</div>
 				<div class="content_hotproduct">
 					<span>♥ HOT PRODUCT ♥</span>
 					<c:forEach items="${pLists.bList}" var="bestDTO">
-						<a href="#"><img src="resources/img/${bestDTO.p_img}"></a>
+						<a href="#"><img src="${path}/resources/img/${bestDTO.p_img}"></a>
 					</c:forEach>
 				</div>
 				<div class="content_newproduct">
 					<span>♥ NEW PRODUCT ♥</span>
 					<c:forEach items="${pLists.nList}" var="newDTO">
-						<a href="#"><img src="resources/img/${newDTO.p_img}"></a>
+						<a href="#"><img src="${path}/resources/img/${newDTO.p_img}"></a>
 					</c:forEach>
 				</div>
 			</div>

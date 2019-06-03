@@ -6,7 +6,7 @@
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 
 <!-- favicon -->
-<link rel="icon" type="image/png" href="resources/img/1.png">
+<link rel="icon" type="image/png" href="${path}/resources/img/1.png">
 <!-- font awesome -->
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 <!-- jQuery -->

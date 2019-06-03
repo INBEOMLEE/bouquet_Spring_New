@@ -6,8 +6,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="resources/css/common.css?v=1">
-<link rel="stylesheet" href="resources/css/header.css?v=1">
+<link rel="stylesheet" href="${path}/resources/css/common.css?v=1">
+<link rel="stylesheet" href="${path}/resources/css/header.css?v=1">
 <title>BOUQUET</title>
 </head>
 <body>
@@ -38,7 +38,7 @@
 					<span class="google_log">구글 로그인</span>
 				</div>
 				<div>
-					<img src="resources/img/facebook.png">
+					<img src="${path}/resources/img/facebook.png">
 					<span class="facebook_log">페이스북 로그인</span>
 				</div>
 			</div>
@@ -59,7 +59,7 @@
 					<c:choose>
 						<c:when test="${empty sessionScope.loginUser}">
 							<a id="modal_open" style="cursor: pointer;">로그인</a>
-							<a href="${path}/constract.bouquet">회원가입</a>
+							<a href="${path}/member/constract">회원가입</a>
 						</c:when>
 						<c:otherwise>
 							<a>
@@ -78,7 +78,7 @@
 		</div>
 		<div class="logo_outline">
 			<div class="logo_inline">
-				<a href="index.bouquet"><img src="resources/img/free_horizontal_on_white_by_logaster.png"></a>
+				<a href="index.bouquet"><img src="${path}/resources/img/free_horizontal_on_white_by_logaster.png"></a>
 			</div>
 		</div>
 		<nav>
