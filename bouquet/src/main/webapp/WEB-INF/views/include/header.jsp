@@ -115,10 +115,6 @@
 						<li>
 							<a href="${path}/boardList.bouquet">질문게시판</a>
 							<div class="dropdown01">
-								<a href="file:///D:/sublime_workspace/bouquet/bouquet_sel.html"></a>
-								<a href="file:///D:/sublime_workspace/bouquet/bouquet_sel.html"></a>
-								<a href="file:///D:/sublime_workspace/bouquet/bouquet_sel.html"></a>
-								<a href="file:///D:/sublime_workspace/bouquet/bouquet_sel.html"></a>
 							</div>
 						</li>
 						<div class="nav_search">
