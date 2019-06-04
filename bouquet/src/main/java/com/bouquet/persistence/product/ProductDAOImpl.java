@@ -17,12 +17,12 @@ public class ProductDAOImpl implements ProductDAO{
 	
 	@Override
 	public List<ProductDTO> bestList() {
-		return sqlSession.selectList("bestList");
+		return sqlSession.selectList("pdt.bestList");
 	}
 
 	@Override
 	public List<ProductDTO> newList() {
-		return sqlSession.selectList("newList");
+		return sqlSession.selectList("pdt.newList");
 	}
 	
 }

@@ -57,14 +57,14 @@
 				</div>
 				<div class="header_menu">
 					<c:choose>
-						<c:when test="${empty sessionScope.loginUser}">
+						<c:when test="${empty sessionScope.bname}">
 							<a id="modal_open" style="cursor: pointer;">로그인</a>
 							<a href="${path}/member/constract">회원가입</a>
 						</c:when>
 						<c:otherwise>
 							<a>
-								${sessionScope.loginUser.bname}
-								( ${sessionScope.loginUser.bid} )
+								${sessionScope.bname}
+								( ${sessionScope.bid} )
 							</a>
 							<a class="logout_btn">로그아웃</a>
 							<a href="${path}/pwUpdate.bouquet">비밀번호 수정</a>
@@ -166,14 +166,14 @@
 				}
 				
 				$.ajax({
-					url: "login.bouquet",
+					url: "${path}/member/login",
 					type: "POST",
-					dataType: "json",
-					data: "id="+id+"&pw="+pw,
+					dataType: "text",
+					data: "bid="+id+"&bpw="+pw,
 					success: function(data) {
-						if(data.message == "1") {
+						if(data == "1") {
 							location.reload();			
-						} else if(data.message == "-1") {
+						} else if(data == "-1") {
 							$('#login_id').select();
 							$('.err_msg').text('회원 아이디 또는 비밀번호가 일치하지 않습니다.')
 							             .css('display', 'block');

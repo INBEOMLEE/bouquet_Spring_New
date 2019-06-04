@@ -158,13 +158,13 @@
 		<div class="section">
 			<div class="inner_section">
 				<div class="member_title">회원 가입</div>
-				<form action="memberPlay.bouquet" class="form" method="POST" id="frm_mem" name="frm_mem">
+				<form action="${path}/member/create" class="form" method="POST" id="frm_mem" name="frm_mem">
 					<!-- 아이디 -->
 					<div class=join_menu>
 						<div class="join_minititle">
 							<label for="id">아이디</label>
 						</div>
-						<input type="text" name="id" id="id" class="input_box" maxlength="20" placeholder="아이디를 입력해주세요.">
+						<input type="text" name="bid" id="id" class="input_box" maxlength="20" placeholder="아이디를 입력해주세요.">
 						<span class="member_err_msg">올바른 값을 입력해주세요.</span>
 						<div class="explanation">
 							<span>소문자 영어와 숫자를 조합하여<br> 6~50자 이하로 입력해주세요.</span>
@@ -175,7 +175,7 @@
 						<div class="join_minititle">
 							<label for="pw">비밀번호</label>
 						</div>
-						<input type="password" name="pw" id="pw" class="input_box" maxlength="20" placeholder="비밀번호를 입력해주세요.">
+						<input type="password" name="bpw" id="pw" class="input_box" maxlength="20" placeholder="비밀번호를 입력해주세요.">
 						<span class="member_err_msg">올바른 값을 입력해주세요.</span>
 						<div class="explanation">
 							<span>영어와 숫자를 조합하여<br> 4~12자 이내로 입력해주세요.</span>
@@ -197,7 +197,7 @@
 						<div class="join_minititle">
 							<label for="name">이름</label>
 						</div>
-						<input type="text" name="name" id="name" class="input_box" maxlength="4" placeholder="이름을 입력해주세요.">
+						<input type="text" name="bname" id="name" class="input_box" maxlength="4" placeholder="이름을 입력해주세요.">
 						<span class="member_err_msg">올바른 값을 입력해주세요.</span>
 						<div class="explanation">
 							<span>한글(Korean) 이름으로<br> 2~4자 이내로 입력해주세요.</span>
@@ -208,7 +208,7 @@
 						<div class="join_minititle">
 							<label for="phone">전화번호</label>
 						</div>
-						<input type="text" name="phone" id="phone" class="input_box" maxlength="11" placeholder="전화번호를 입력해주세요.">
+						<input type="text" name="bphone" id="phone" class="input_box" maxlength="11" placeholder="전화번호를 입력해주세요.">
 						<span class="member_err_msg">올바른 값을 입력해주세요.</span>
 						<div class="explanation">
 							<span>'-' 없이 숫자로만 입력해주세요.<br>ex ) 01012345678</span>
@@ -223,15 +223,14 @@
 							<input type="text" id="email_id" name="email_id" placeholder="이메일을 입력해주세요.">
 							<h1>@</h1>
 							<input type="text" id="email_url" name="email_url" placeholder="이메일 선택">
+							<input type="hidden" name="bemail" id="bemail">
 							<select id="selmail">
 								<option value="">이메일 선택</option>
-								<option value="directVal">직접입력
-								</option>
+								<option value="directVal">직접입력</option>
 								<option value="naver.com">naver.com</option>
 								<option value="daum.net">daum.net</option>
 								<option value="gmail.com">gmail.com</option>
-								<option value="nate.com">nate.com
-								</option>
+								<option value="nate.com">nate.com</option>
 							</select>
 						</div>
 						<span class="member_err_msg">올바른 값을 입력해주세요.</span>
@@ -246,10 +245,10 @@
 							<label for="phone">주소</label>
 						</div>
 						<div class=address_wrap>
-							<input type="text" id="sample6_postcode" class="addrbtn" placeholder="우편번호" name="zipcode" readonly="readonly">
+							<input type="text" id="sample6_postcode" class="addrbtn" placeholder="우편번호" name="bzipcode" readonly="readonly">
 							<input type="button" id="addr_btn" onclick="sample6_execDaumPostcode()" value="우편번호 찾기">
-							<input type="text" id="sample6_address" class="addrbtn" placeholder="주소" name="addr1" readonly="readonly">
-							<input type="text" id="sample6_detailAddress" name="addr2" placeholder="상세주소">
+							<input type="text" id="sample6_address" class="addrbtn" placeholder="주소" name="baddr1" readonly="readonly">
+							<input type="text" id="sample6_detailAddress" name="baddr2" placeholder="상세주소">
 							<input type="text" id="sample6_extraAddress" placeholder="참고항목">
 						</div>
 						<span class="member_err_msg">올바른 값을 입력해주세요.</span>
@@ -257,14 +256,12 @@
 							<span>우편번호 찾기를 이용하시면<br>편리하게 주소입력을 하실 수 있습니다.</span>
 						</div>
 					</div>
-				
 					<div class="joinBtn_wrap">가입하기</div>
 				</form>
 			</div>
 		</div>
 	</section>
 	<%@ include file="../include/footer.jsp" %>
-	
 	<script type="text/javascript" src="${path}/resources/js/validation.js"></script>
 	<script type="text/javascript">
 		
@@ -636,6 +633,11 @@
 			});
 			
 			$('.joinBtn_wrap').click(function(){
+				var email = $('#email_id').val();
+				var url = $('#email_url').val();
+				var bemail = email + "@" + url;
+				$('#bemail').val(bemail);
+				
 				$('#frm_mem').submit();
 				
 			});

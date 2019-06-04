@@ -10,6 +10,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT COUNT(bid) FROM tbl_member
 		WHERE bid = #{id}
 	</select>
+	
+	<insert id="create" parameterType="com.bouquet.domain.member.MemberDTO">
+		INSERT INTO tbl_member(bid, bpw, bname, bphone, bemail, bzipcode, baddr1, baddr2)
+		VALUES(#{bid}, #{bpw}, #{bname}, #{bphone}, #{bemail}, #{bzipcode}, #{baddr1}, #{baddr2})
+	</insert>
+	
+	<select id="login" parameterType="com.bouquet.domain.member.MemberDTO" resultType="String">
+		SELECT bname FROM tbl_member
+		WHERE bid = #{bid} AND bpw = #{bpw}
+	</select>
 </mapper>
 
 
