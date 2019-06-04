@@ -8,4 +8,7 @@ public interface MemberDAO {
 	public int create(MemberDTO mDto);
 	
 	public String login(MemberDTO mDto);
+	
+	public MemberDTO viewMember(String bid);
+
 }

@@ -40,12 +40,24 @@ public class MemberServiceImpl implements MemberService{
 		String name = mDao.login(mDto);
 		boolean result = false;
 		if(name != null) { // 로그인 성공
+			session.removeAttribute("bid");
+			session.removeAttribute("bname");
 			session.setAttribute("bid", mDto.getBid());
 			session.setAttribute("bname", name);
 			result = true;
 		}
-		
 		return result;
+	}
+
+	@Override
+	public void logout(HttpSession session) {
+		session.invalidate();
+	}
+
+	@Override
+	public MemberDTO viewMember(HttpSession session) {
+		String bid = (String) session.getAttribute("bid");
+		return mDao.viewMember(bid);
 	}
 	
 }

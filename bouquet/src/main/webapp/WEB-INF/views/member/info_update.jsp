@@ -178,7 +178,7 @@
 						<div class="join_minititle">
 							<label for="id">아이디</label>
 						</div>
-						<input type="text" name="id" id="id" class="input_box" maxlength="20" placeholder="아이디를 입력해주세요." readonly="readonly" value="${sessionScope.loginUser.bid}">
+						<input type="text" name="id" id="id" class="input_box" maxlength="20" placeholder="아이디를 입력해주세요." readonly="readonly" value="${mDto.bid}">
 						<span class="error_message">올바른 값을 입력해주세요.</span>
 						<div class="explanation">
 							<span>소문자 영어와 숫자를 조합하여<br> 6~50자 이하로 입력해주세요.</span>
@@ -189,7 +189,7 @@
 						<div class="join_minititle">
 							<label for="name">이름</label>
 						</div>
-						<input type="text" name="name" id="name" class="input_box" maxlength="4" placeholder="이름을 입력해주세요." value="${sessionScope.loginUser.bname}">
+						<input type="text" name="name" id="name" class="input_box" maxlength="4" placeholder="이름을 입력해주세요." value="${mDto.bname}">
 						<span class="error_message">올바른 값을 입력해주세요.</span>
 						<div class="explanation">
 							<span>한글(Korean) 이름으로<br> 2~4자 이내로 입력해주세요.</span>
@@ -200,7 +200,7 @@
 						<div class="join_minititle">
 							<label for="phone">전화번호</label>
 						</div>
-						<input type="text" name="phone" id="phone" class="input_box" maxlength="11" placeholder="전화번호를 입력해주세요." value="${sessionScope.loginUser.bphone}">
+						<input type="text" name="phone" id="phone" class="input_box" maxlength="11" placeholder="전화번호를 입력해주세요." value="${mDto.bphone}">
 						<span class="error_message">올바른 값을 입력해주세요.</span>
 						<div class="explanation">
 							<span>'-' 없이 숫자로만 입력해주세요.<br>ex ) 01012345678</span>
@@ -238,10 +238,10 @@
 							<label for="phone">주소</label>
 						</div>
 						<div class=address_wrap>
-							<input type="text" name="zipcode" id="sample6_postcode" placeholder="우편번호" value="${sessionScope.loginUser.bzipcode}">
+							<input type="text" name="zipcode" id="sample6_postcode" placeholder="우편번호" value="${mDto.bzipcode}">
 							<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기">
-							<input type="text" name="addr1" id="sample6_address" placeholder="주소" value="${sessionScope.loginUser.baddr1}">
-							<input type="text" name="addr2" id="sample6_detailAddress" placeholder="상세주소" value="${sessionScope.loginUser.baddr2}">
+							<input type="text" name="addr1" id="sample6_address" placeholder="주소" value="${mDto.baddr1}">
+							<input type="text" name="addr2" id="sample6_detailAddress" placeholder="상세주소" value="${mDto.baddr2}">
 							<input type="text" id="sample6_extraAddress" placeholder="참고항목" >
 						</div>
 						<span class="error_message">올바른 값을 입력해주세요.</span>
@@ -262,7 +262,7 @@
 	<script type="text/javascript">
 		
 		$(document).ready(function(){
-			var email = "${sessionScope.loginUser.bemail}";
+			var email = "${mDto.bemail}";
 			
 			var index = email.indexOf('@');
 			var email_id = email.substring(0, index);
@@ -297,7 +297,7 @@
 									   .css('display', 'block')
 									   .css('color', 'tomato');
 					return false;
-				} else if(name.length < 2 || name.length > 4) { 
+				} else if(name.length < 2 || name.length > 4) {  
 					$('.error_message').eq(1).text('이름은 2자 이상 4자 이하여만 합니다.')
 									   .css('display', 'block')
 									   .css('color', 'tomato');

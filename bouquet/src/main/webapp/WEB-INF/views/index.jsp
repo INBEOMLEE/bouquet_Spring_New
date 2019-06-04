@@ -103,6 +103,7 @@
 	<%@ include file="include/footer.jsp" %>
 	<script type="text/javascript">
 		$(document).ready(function(){
+			
 			$('.idpw').focus(function(){
 				$(this).css("border", "1px solid #D8ADB6");
 			});

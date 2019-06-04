@@ -68,10 +68,11 @@
 							</a>
 							<a class="logout_btn">로그아웃</a>
 							<a href="${path}/pwUpdate.bouquet">비밀번호 수정</a>
-							<a href="${path}/infoUpdate.bouquet">회원정보 수정</a>
+							
 							<a href="${path}/dropMember.bouquet">회원 탈퇴</a>
 						</c:otherwise>
 					</c:choose>
+					<a href="${path}/member/update">회원정보 수정</a>
 					<a>고객센터</a>
 				</div>
 			</div>
@@ -187,11 +188,9 @@
 			
 			$('.logout_btn').click(function(){
 				$.ajax({
-					url: "logOutAjax.bouquet",
+					url: "${path}/member/logout",
 					type: "POST",
-					dataType: "json",
-					data: "",
-					success: function(data) {
+					success: function() {
 						location.reload();
 					},
 					errer:function() {

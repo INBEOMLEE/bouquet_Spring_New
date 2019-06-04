@@ -4,9 +4,11 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bouquet.domain.member.MemberDTO;
 import com.bouquet.service.member.MemberService;
@@ -30,6 +32,14 @@ public class MemberController {
 		return flag;
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = "/logout", method = RequestMethod.POST)
+	public void logout(HttpSession session) {
+		log.info("AJAX : 로그아웃");
+		
+		service.logout(session);
+		
+	}
 	
 	@RequestMapping(value = "/constract", method = RequestMethod.GET)
 	public String constract() {
@@ -53,6 +63,7 @@ public class MemberController {
 		
 		if( result > 0 ) {
 			log.info("회원가입 성공");
+//			rttr.addFlashAttribute("message", "1회성 데이터");
 			return "redirect:/";
 		} else {
 			log.info("회원가입 실패");
@@ -66,6 +77,16 @@ public class MemberController {
 		log.info("AJAX : ID 중복 체크");
 		
 		return service.idCheck(id);
+	}
+	
+	@RequestMapping(value = "/update", method = RequestMethod.GET)
+	public String updateView(HttpSession session, Model model) {
+		log.info(">>>>> 회원수정 페이지 출력");
+		MemberDTO mDto = service.viewMember(session);
+		
+		model.addAttribute("mDto", mDto);
+		
+		return "/member/info_update";
 	}
 	
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
