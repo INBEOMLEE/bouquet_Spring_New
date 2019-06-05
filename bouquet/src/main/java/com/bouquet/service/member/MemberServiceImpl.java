@@ -60,4 +60,53 @@ public class MemberServiceImpl implements MemberService{
 		return mDao.viewMember(bid);
 	}
 	
+	@Override
+	public void update(MemberDTO mDto, HttpSession session) {
+		int result = mDao.update(mDto);
+		
+		if(result > 0) {
+			log.info("회원정보 수정 완료");
+			session.removeAttribute("bname");
+			session.setAttribute("bname", mDto.getBname());
+		} else {
+			log.info("회원정보 수정 실패");
+		}
+	}
+
+	@Override
+	public String pwCheck(MemberDTO mDto) {
+		// DB에서 가져온 현재 비밀번호와 사용자가 입력한 현재 비밀번호가 같은지 체크해서
+		// 같으면 1, 틀리면 -1을 view 단으로 전송
+		String bname = mDao.login(mDto);
+		String result = "-1";
+		if( bname != null ) result = "1";
+		
+		
+		return result;
+	}
+
+	@Override
+	public void pwUpdate(MemberDTO mDto) {
+		
+		int result = mDao.pwUpdate(mDto); 
+		
+		if(result > 0) {
+			log.info("비밀번호 수정 완료");
+		} else {
+			log.info("비밀번호 수정 실패");
+		}
+	}
+
+	@Override
+	public void delete(String bid, HttpSession session) {
+		int result = mDao.delete(bid);
+		
+		if(result > 0) {
+			log.info("회원탈퇴 완료");
+			session.invalidate();
+		} else {
+			log.info("회원탈퇴 실패");
+		}
+	}
+
 }

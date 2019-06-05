@@ -73,7 +73,7 @@ public class MemberController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/idcheck", method = RequestMethod.POST)
-	public int idcheck(String id) {
+	public int idCheck(String id) {
 		log.info("AJAX : ID 중복 체크");
 		
 		return service.idCheck(id);
@@ -89,9 +89,52 @@ public class MemberController {
 		return "/member/info_update";
 	}
 	
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	public String updatePlay(MemberDTO mDto, HttpSession session) {
+		log.info(">>>>> 회원수정 액션");
+		service.update(mDto, session);
+		
+		return "redirect:/";
+	}
+	
+	@RequestMapping(value = "/pwupdate", method = RequestMethod.GET)
+	public String pwUpdateView() {
+		log.info(">>>>> 비밀번호 수정 페이지 출력");
+		
+		return "/member/pw_update";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/pwcheck", method = RequestMethod.POST)
+	public String pwCheck(MemberDTO mDto) {
+		log.info("AJAX : 비밀번호 일치 여부 확인");
+		// bid => 현재 로그인 유저의 ID
+		// bpw => 사용자가 입력한 현재 비밀번호 값
+		// DB에 등록 되어있는 비밀번호 값
+		String result = service.pwCheck(mDto);
+		
+		return result;
+	}
+	
+	@RequestMapping(value = "/pwupdate", method = RequestMethod.POST)
+	public String pwUpdatePlay(MemberDTO mDto) {
+		log.info(">>>>> 비밀번호 수정 액션");
+		
+		service.pwUpdate(mDto);
+		
+		return "redirect:/";
+	}
+	
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
-	public String delete() {
-		log.info(">>>>> 회원삭제");
-		return "";
+	public String deleteView() {
+		log.info(">>>>> 회원삭제 페이지 출력");
+		return "/member/member_delete";
+	}
+	
+	@RequestMapping(value = "/delete", method = RequestMethod.POST)
+	public String deletePlay(String bid, HttpSession session) {
+		log.info(">>>>> 회원삭제 액션");
+		service.delete(bid, session);
+		return "redirect:/";
 	}
 }

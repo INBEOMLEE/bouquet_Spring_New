@@ -67,19 +67,18 @@
 								( ${sessionScope.bid} )
 							</a>
 							<a class="logout_btn">로그아웃</a>
-							<a href="${path}/pwUpdate.bouquet">비밀번호 수정</a>
-							
-							<a href="${path}/dropMember.bouquet">회원 탈퇴</a>
+							<a href="${path}/member/pwupdate">비밀번호 수정</a>
+							<a href="${path}/member/update">회원정보 수정</a>
+							<a href="${path}/member/delete">회원 탈퇴</a>
 						</c:otherwise>
 					</c:choose>
-					<a href="${path}/member/update">회원정보 수정</a>
 					<a>고객센터</a>
 				</div>
 			</div>
 		</div>
 		<div class="logo_outline">
 			<div class="logo_inline">
-				<a href="index.bouquet"><img src="${path}/resources/img/free_horizontal_on_white_by_logaster.png"></a>
+				<a href="${path}/"><img src="${path}/resources/img/free_horizontal_on_white_by_logaster.png"></a>
 			</div>
 		</div>
 		<nav>

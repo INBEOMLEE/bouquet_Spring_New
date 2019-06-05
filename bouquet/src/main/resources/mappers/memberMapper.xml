@@ -25,6 +25,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT * FROM tbl_member
 		WHERE bid = #{bid}
 	</select>
+	
+	<update id="pwUpdate" parameterType="com.bouquet.domain.member.MemberDTO">
+		UPDATE tbl_member
+		SET bpw = #{bpw}
+		WHERE bid = #{bid}
+	</update>
+	
+	<update id="update" parameterType="com.bouquet.domain.member.MemberDTO">
+		UPDATE tbl_member
+		SET bname = #{bname},
+		    bphone = #{bphone},
+		    bemail = #{bemail},
+		    bzipcode = #{bzipcode},
+		    baddr1 = #{baddr1},
+		    baddr2 = #{baddr2}
+		WHERE bid = #{bid}
+	</update>
+	
+	<delete id="delete" parameterType="String">
+		DELETE FROM tbl_member
+		WHERE bid = #{bid}
+	</delete>
 </mapper>
 
 

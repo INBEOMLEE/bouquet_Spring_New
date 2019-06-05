@@ -185,21 +185,20 @@ function ajaxCheck(memId) {
 function ajaxPwCheck(nowId, nowPw) {
 	var return_val = false;
 	$.ajax({
-		url: "pwCheck.bouquet",
+		url: "pwcheck?bid=" + nowId + "&bpw=" + nowPw,
 		type: "POST",
-		dataType: "json",
-		data: "id=" + nowId + "&pw=" + nowPw,
 		async: false,
+		dataType: "text",
 		success: function(data) {
-			if(data.flag) {
+			if(data == "1") {
 				$('.pwAjax').eq(0).text('비밀번호가 일치합니다.')
-               						     .css('display', 'block')
-                                         .css('color', 'dodgerblue');
+               					  .css('display', 'block')
+                                  .css('color', 'dodgerblue');
 				return_val = true;
 			} else {
 				$('.pwAjax').eq(0).text('비밀번호가 일치하지 않습니다.')
-				                             .css('display', 'block')
-                                         .css('color', 'tomato');
+				                  .css('display', 'block')
+                                  .css('color', 'tomato');
 				return_val = false;
 			}
 		},

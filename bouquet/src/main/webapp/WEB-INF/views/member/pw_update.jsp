@@ -120,8 +120,8 @@
 		<div class="section">
 			<div class="inner_section">
 				<div class="pwupdate_title">비밀번호 수정</div>
-				<form class="form" method="POST" action="pwUpdatePlay.bouquet" id="frm_mem">
-					<input type="hidden" name="id" value="${sessionScope.loginUser.bid}">
+				<form class="form" method="POST" action="${path}/member/pwupdate" id="frm_mem">
+					<input type="hidden" name="bid" value="${sessionScope.bid}">
 					<!-- 비밀번호 -->
 					<div class=join_menu>
 						<div class="join_minititle">
@@ -138,7 +138,7 @@
 						<div class="join_minititle">
 							<label for="new_pw">새 비밀번호</label>
 						</div>
-						<input type="password" name="new_pw" id="new_pw" class="input_box" maxlength="20" placeholder="새 비밀번호">
+						<input type="password" name="bpw" id="new_pw" class="input_box" maxlength="20" placeholder="새 비밀번호">
 						<span class="pwAjax">올바른 값을 입력해주세요.</span>
 						<div class="explanation">
 							<span>영어와 숫자를 조합하여<br> 4~12자 이내로 입력해주세요.</span>
@@ -172,7 +172,7 @@
 			var newPwEq = false;
 			
 			$('#pw').blur(function(){
-				var nowId = "${sessionScope.loginUser.bid}";
+				var nowId = "${sessionScope.bid}";
 				var nowPw = $("#pw").val();
 				if(nowPw != null || nowPw.length != 0) {
 					currentPw = ajaxPwCheck(nowId, nowPw);

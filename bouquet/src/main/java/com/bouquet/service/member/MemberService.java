@@ -15,4 +15,14 @@ public interface MemberService {
 	public void logout(HttpSession session);
 	// 회원정보 1건 검색
 	public MemberDTO viewMember(HttpSession session);
+	// 회원정보 수정
+	public void update(MemberDTO mDto, HttpSession session);
+	// 비밀번호 일치여부 확인
+	public String pwCheck(MemberDTO mDto);
+	// 비밀번호 수정
+	public void pwUpdate(MemberDTO mDto);
+	// 회원 탈퇴
+	public void delete(String bid, HttpSession session);
+	
+	
 }
