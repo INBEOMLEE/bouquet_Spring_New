@@ -113,7 +113,7 @@
 							</div>
 						</li>
 						<li>
-							<a href="${path}/boardList.bouquet">질문게시판</a>
+							<a href="${path}/board/list">질문게시판</a>
 							<div class="dropdown01">
 							</div>
 						</li>

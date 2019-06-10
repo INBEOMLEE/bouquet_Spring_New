@@ -253,10 +253,10 @@ section {
 		<div class="board_inline">
 			<div class="board_topic">질문 게시판</div>
 			<div class="board_sort">
-				<span><a href="${path}/boardList.bouquet?page=${criDto.page}&sort_type=new&keyword=${keyword}&search_option=${search_option}">최신순</a></span> 
-				<span><a href="${path}/boardList.bouquet?page=${criDto.page}&sort_type=good&keyword=${keyword}&search_option=${search_option}">추천순</a></span> 
-				<span><a href="${path}/boardList.bouquet?page=${criDto.page}&sort_type=reply&keyword=${keyword}&search_option=${search_option}">댓글순</a></span> 
-				<span><a href="${path}/boardList.bouquet?page=${criDto.page}&sort_type=view&keyword=${keyword}&search_option=${search_option}">조회순</a></span>
+				<span><a href="${path}/board/list?curPage=${map.pager.curPage}&sort_option=new&keyword=${map.keyword}&search_option=${map.search_option}">최신순</a></span> 
+				<span><a href="${path}/board/list?curPage=${map.pager.curPage}&sort_option=good&keyword=${map.keyword}&search_option=${map.search_option}">추천순</a></span> 
+				<span><a href="${path}/board/list?curPage=${map.pager.curPage}&sort_option=reply&keyword=${map.keyword}&search_option=${map.search_option}">댓글순</a></span> 
+				<span><a href="${path}/board/list?curPage=${map.pager.curPage}&sort_option=view&keyword=${map.keyword}&search_option=${map.search_option}">조회순</a></span>
 			</div>
 			<table class="board">
 				<tr class="board_column" id="board_column">
@@ -268,7 +268,7 @@ section {
 					<th>좋아요</th>
 					<th>첨부</th>
 				</tr>
-				<c:forEach items="${list}" var="bDto">
+				<c:forEach items="${map.list}" var="bDto">
 					<!-- 현재시간 구하기 -->
 					<jsp:useBean id="now" class="java.util.Date" />
 					<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today" />
@@ -312,37 +312,37 @@ section {
 			
 			<div class="board_insert" id="boardAdd">게시글 등록</div>
 			
-			<c:if test="${!empty keyword}">
+			<c:if test="${!empty map.keyword}">
 				<div id="search_result">
-					<span class="search_span">"${keyword}"</span> 로 검색한 결과는 총
-					<span class="search_span">${totalCount}</span>건입니다.
+					<span class="search_span">"${map.keyword}"</span>(으)로 검색한 결과는 총
+					<span class="search_span">${map.count}</span>건입니다.
 				</div>
 			</c:if>
 			
 			<div class="board_search">
 				<select id="selsearch" name="selsearch">
-					<option value="1" selected="selected">제목+내용</option>
-					<option value="2">제목</option>
-					<option value="3">내용</option>
-					<option value="4">작성자</option>
+					<option value="all" selected="selected">제목+내용</option>
+					<option value="title">제목</option>
+					<option value="content">내용</option>
+					<option value="writer">작성자</option>
 				</select>
 				<input type="text" class="search" name="search" id="search_board">
 				<i class="fas fa-search" id="search_btn"></i>
 			</div>
 			<div class="pagination_box">
 				<div class="pagination">
-					<c:if test="${pageMaker.prev}">
-						<a href="boardList.bouquet?page=1&sort_type=${sort_type}&keyword=${keyword}&search_option=${search_option}"><i class="fas fa-angle-double-left"></i></a>
-						<a href="boardList.bouquet?page=${pageMaker.startPage - 1}&sort_type=${sort_type}&keyword=${keyword}&search_option=${search_option}"><i class="fas fa-angle-left"></i></a> 
+					<c:if test="${map.pager.curBlock > 1}">
+						<a href="${path}/board/list?curPage=1&sort_type=${sort_type}&keyword=${map.keyword}&search_option=${map.search_option}"><i class="fas fa-angle-double-left"></i></a>
+						<a href="${path}/board/list?curPage=${map.pager.blockBegin - 10}&sort_option=${map.sort_option}&keyword=${map.keyword}&search_option=${map.search_option}"><i class="fas fa-angle-left"></i></a> 
 					</c:if>
 					
-					<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
-						<a href="${path}/boardList.bouquet?page=${idx}&sort_type=${sort_type}&keyword=${keyword}&search_option=${search_option}" <c:out value="${pageMaker.criDto.page == idx ? 'class=active':''}"/>>${idx}</a>
+					<c:forEach begin="${map.pager.blockBegin}" end="${map.pager.blockEnd}" var="idx">
+						<a href="${path}/board/list?curPage=${idx}&sort_option=${map.sort_option}&keyword=${map.keyword}&search_option=${map.search_option}" <c:out value="${map.pager.curPage == idx ? 'class=active':''}"/>>${idx}</a>
 					</c:forEach>
 					
-					<c:if test="${pageMaker.next}">
-						<a href="${path}/boardList.bouquet?page=${pageMaker.endPage + 1}&sort_type=${sort_type}&keyword=${keyword}&search_option=${search_option}"><i class="fas fa-angle-right"></i></a>
-						<a href="${path}/boardList.bouquet?page=${pageMaker.finalPage}&sort_type=${sort_type}&keyword=${keyword}&search_option=${search_option}"><i class="fas fa-angle-double-right"></i></a> 
+					<c:if test="${map.pager.curBlock < map.pager.totBlock}">
+						<a href="${path}/board/list?curPage=${map.pager.blockEnd + 1}&sort_option=${map.sort_option}&keyword=${map.keyword}&search_option=${map.search_option}"><i class="fas fa-angle-right"></i></a>
+						<a href="${path}/board/list?curPage=${map.pager.totPage}&sort_option=${map.sort_option}&keyword=${map.keyword}&search_option=${map.search_option}"><i class="fas fa-angle-double-right"></i></a> 
 					</c:if>
 				</div>
 			</div>
@@ -363,7 +363,7 @@ section {
 				}
 			});
 			
-			var sort_type = "${sort_type}";
+			var sort_type = "${map.sort_option}";
 			if(sort_type == "new") {
 				$('.board_sort span').eq(0).css('color', '#D8ADB6').css('font-size', '18px');
 			} else if(sort_type == "good") {
@@ -385,7 +385,7 @@ section {
 				} else {
 					$('#search_board').css('border', '1px solid #ddd');
 				}
-				location.href="${path}/boardList.bouquet?search_option="+search_option+"&keyword="+keyword;
+				location.href="${path}/board/list?search_option="+search_option+"&keyword="+keyword;
 			});
 			
 			$("#boardAdd").click(function(){
