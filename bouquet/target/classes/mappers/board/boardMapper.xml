@@ -72,5 +72,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<include refid="search"/>
 	</select>
 	
+	<!-- 상세 게시글 출력 -->
+	<select id="read" parameterType="int" resultType="com.bouquet.domain.board.BoardDTO">
+		SELECT * FROM tbl_board
+		WHERE bno = #{bno}
+	</select>
+	
+	<!-- 조회수 1 증가 -->
+	<update id="increaseViewCnt" parameterType="int">
+		UPDATE tbl_board
+		SET viewcnt = viewcnt + 1
+		WHERE bno = #{bno}
+	</update>
+	
+	<!-- 리플 리스트 조회 -->
+	<select id="list" parameterType="int" resultType="com.bouquet.domain.board.ReplyDTO">
+		SELECT * FROM tbl_reply
+		WHERE bno = #{bno}
+	</select>
 	
 </mapper>

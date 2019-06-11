@@ -4,8 +4,10 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,6 +34,7 @@ public class BoardController {
 			@RequestParam(defaultValue = "") String keyword,
 			@RequestParam(defaultValue = "1") int curPage ) {
 		log.info(">>>>> 게시글 목록 출력");
+		
 		// 레코드 개수 계산
 		int count = service.countArticle(search_option, keyword);
 		
@@ -59,5 +62,17 @@ public class BoardController {
 		return mav;
 	}
 	
+	// 게시글 1건 (상세 게시글) 출력
+	@RequestMapping (value = "/view", method = RequestMethod.GET)
+	public String view(int bno, Model model, HttpSession session) {
+		log.info(">>>>> 상세 게시글 출력");
+		// 조회수 증가처리
+		service.increaseViewCnt(bno, session);
+		
+		BoardDTO bDto = service.read(bno);
+		model.addAttribute("bDto", bDto);
+		
+		return "/board/view";
+	}
 	
 }

@@ -38,7 +38,7 @@ public class BoardDAOImpl implements BoardDAO{
 
 	@Override
 	public BoardDTO read(int bno) {
-		return null;
+		return sqlSession.selectOne("board.read", bno);
 	}
 
 	@Override
@@ -54,8 +54,8 @@ public class BoardDAOImpl implements BoardDAO{
 	}
 
 	@Override
-	public void increaseViewCnt(int bno, HttpSession session) {
-		
+	public void increaseViewCnt(int bno) {
+		sqlSession.update("board.increaseViewCnt", bno);
 	}
 
 	@Override

@@ -276,7 +276,7 @@ section {
 					<tr>
 						<td id="bDto_bno">${bDto.bno}</td>
 						<td>
-							<a href="${path}/boardView.bouquet?bno=${bDto.bno}">${bDto.title} 
+							<a href="${path}/board/view?bno=${bDto.bno}">${bDto.title} 
 								<c:if test="${bDto.replycnt > 0}">
 									<span class="replyCnt_Color">${bDto.replycnt}</span>
 								</c:if> 

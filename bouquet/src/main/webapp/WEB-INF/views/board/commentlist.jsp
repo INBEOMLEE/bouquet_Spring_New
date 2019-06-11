@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../include/common.jsp" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,7 +16,7 @@
 			<div class="comment_box_name">${replyview.writer}</div>
 			<div class="comment_box_date"><fmt:formatDate pattern="yyyy-MM-dd" value="${replyview.regdate}" /></div>
 			
-			<c:if test="${sessionScope.loginUser.bid == replyview.writer}">
+			<c:if test="${sessionScope.bid == replyview.writer}">
 				<a class="reply_del" data_num="${replyview.rno}"><i class="fas fa-times"></i></a>
 			</c:if>
 			
@@ -34,7 +35,7 @@
 	</c:if>
 	
 	<c:choose>
-		<c:when test="${empty sessionScope.loginUser}">
+		<c:when test="${empty sessionScope.bid}">
 			<div class="comment_box comment_not_user">
 				<i class="fas fa-user"></i>
 				<br>
@@ -45,15 +46,16 @@
 			<div class="line"></div>
 			<form action="replyAdd.bouquet" method="POST" name="frm_reply" id="frm_reply">
 				<div class="font_style">작성자</div>
-				<input type="text" class="input_style" id="margin_bottom" name="re_writer" value="${sessionScope.loginUser.bid}" readonly="readonly">
+				<input type="text" class="input_style" id="margin_bottom" name="re_writer" value="${sessionScope.bid}" readonly="readonly">
 				<textarea id="replyInsert" name="re_textarea"></textarea>
 				<script type="text/javascript">
 					var oEditors = [];
 					nhn.husky.EZCreator.createInIFrame({
 					 oAppRef: oEditors,
 					 elPlaceHolder: "replyInsert",
-					 sSkinURI: "<%=request.getContextPath()%>/smarteditor/SmartEditor2Skin.html",
-					 fCreator: "createSEditor2"
+					 sSkinURI: "${path}/resources/smarteditor/SmartEditor2Skin.html",
+					 fCreator: "createSEditor2",
+					 htParams: { fOnBeforeUnload : function(){} }
 					});
 				</script>
 				<div class="view_err_message">내용을 입력해주세요.</div>

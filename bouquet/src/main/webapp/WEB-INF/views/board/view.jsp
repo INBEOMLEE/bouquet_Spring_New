@@ -11,7 +11,7 @@
 <head>
 <meta charset="UTF-8">
 <title>BOUQUET : 상세 게시글</title>
-<script type="text/javascript" src="resources/smarteditor/js/service/HuskyEZCreator.js" charset="utf-8"></script>
+<script type="text/javascript" src="${path}/resources/smarteditor/js/service/HuskyEZCreator.js" charset="utf-8"></script>
 <style type="text/css">
 	section {
 		width: 100%;
@@ -129,7 +129,7 @@
 		float: right;
 		
 	}
-	.board_inline div:nth-child(8) {
+	#board_update {
 		margin-right: 20px;
 	}
 	.comment {
@@ -407,13 +407,15 @@
 			
 			<div class="btn_style" id="returnGo">게시글 목록</div>
 			
-			<div class="btn_style">답변</div>
-			<c:if test="${!empty sessionScope.loginUser}">
+			<c:if test="${!empty sessionScope.bid}">
+				<div class="btn_style">답변</div>
+			</c:if>
+			<c:if test="${!empty sessionScope.bid}">
 				<div class="good_btn"><i class="far fa-heart"></i></div>
 				<div class="good_btn" id="good_btn_none"><i class="fas fa-heart"></i></div>
 			</c:if>
-			<c:if test="${sessionScope.loginUser.bid == bDto.writer}">			
-				<div class="btn_style float update_btn">게시글 수정</div>
+			<c:if test="${sessionScope.bid == bDto.writer}">			
+				<div class="btn_style float update_btn" id="board_update">게시글 수정</div>
 				<div class="btn_style float delete_btn">게시글 삭제</div>
 			</c:if>
 		</div>
@@ -510,8 +512,8 @@
 		
 		function comment_list() {
 			$.ajax({
-				type: "post",
-				url: "commentlist.bouquet",
+				type: "GET",
+				url: "${path}/reply/list",
 				data: "bno=${bDto.bno}",
 				success: function(result) {
 					$("#commentList").html(result);
@@ -521,7 +523,6 @@
 		
 		$(document).on("click", ".reply_btn", function(){
 			oEditors.getById["replyInsert"].exec("UPDATE_CONTENTS_FIELD", []);
-			
 			
 			var content = $('#replyInsert').val();
 			
