@@ -6,6 +6,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.bouquet.domain.board.ReplyDTO;
 import com.bouquet.persistence.board.BoardDAO;
@@ -26,7 +27,8 @@ public class ReplyServiceImpl implements ReplyService{
 	public List<ReplyDTO> list(int bno) {
 		return rDao.list(bno);
 	}
-
+	
+	@Transactional
 	@Override
 	public void create(ReplyDTO rDto) {
 		
@@ -45,7 +47,8 @@ public class ReplyServiceImpl implements ReplyService{
 		map.put("bno", rDto.getBno());
 		bDao.updateReplyCnt(map);
 	}
-
+	
+	@Transactional
 	@Override
 	public void delete(ReplyDTO rDto) {
 		
