@@ -14,4 +14,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		ORDER BY rno
 	</select>
 	
+	<!-- 댓글 등록 -->
+	<insert id="create" parameterType="com.bouquet.domain.board.ReplyDTO">
+		INSERT INTO tbl_reply (rno, content, writer, bno)
+		VALUES (seq_reply.NEXTVAL, #{content}, #{writer}, #{bno})
+	</insert>
+	
+	<!-- 1개의 게시글 총 댓글 수 구하기 -->
+	<!-- <select id="selectOne" parameterType="int" resultType="int">
+		SELECT COUNT(*) FROM tbl_reply
+		WHERE bno = #{bno}
+	</select> -->
+	
+	<!-- 댓글 삭제 -->
+	<delete id="delete" parameterType="com.bouquet.domain.board.ReplyDTO">
+		DELETE FROM tbl_reply
+		WHERE rno = #{rno}
+	</delete>
 </mapper>

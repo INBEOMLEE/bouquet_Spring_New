@@ -91,4 +91,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE bno = #{bno}
 	</select>
 	
+	<!-- tbl_board 에 리플 개수 업데이트 하기 -->
+	<!-- <update id="replyCntUpdate" parameterType="HashMap">
+		UPDATE tbl_board
+		SET replycnt = #{replycnt}
+		WHERE bno = #{bno}
+	</update> -->
+	
+	<!-- tbl_board 에 리플 개수 업데이트 하기 (동적쿼리) -->
+	<update id="updateReplyCnt" parameterType="HashMap">
+		UPDATE tbl_board SET
+		<if test="flag == 'plus'">
+			replycnt = replycnt + 1
+		</if>
+		<if test="flag == 'minus'">
+			replycnt = replycnt - 1
+		</if>
+		WHERE bno = #{bno}
+	</update>	
 </mapper>

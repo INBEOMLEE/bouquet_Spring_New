@@ -233,6 +233,7 @@ section {
 	color: white;
 	border-radius: 50%;
 	padding: 2px 5px;
+	margin: 0px 3px;
 }
 .pagination a.active {
 	background-color: #D8ADB6;
@@ -245,6 +246,10 @@ section {
 	display: inline-block;
 	font-size: 17px;
 	margin-left: 20px;
+}
+#bDto_title {
+	display: flex;
+	align-items: center;
 }
 </style>
 </head>
@@ -276,7 +281,7 @@ section {
 					<tr>
 						<td id="bDto_bno">${bDto.bno}</td>
 						<td>
-							<a href="${path}/board/view?bno=${bDto.bno}">${bDto.title} 
+							<a href="${path}/board/view?bno=${bDto.bno}" id="bDto_title">${bDto.title} 
 								<c:if test="${bDto.replycnt > 0}">
 									<span class="replyCnt_Color">${bDto.replycnt}</span>
 								</c:if> 

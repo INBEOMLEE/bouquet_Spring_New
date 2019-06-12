@@ -21,12 +21,17 @@ public class ReplyDAOImpl implements ReplyDAO{
 	}
 
 	@Override
-	public void create(ReplyDTO rDto) {
-		
+	public int create(ReplyDTO rDto) {
+		return session.insert("reply.create", rDto);
 	}
 
 	@Override
-	public void delete(ReplyDTO rDto) {
-		
+	public int delete(int rno) {
+		return session.delete("reply.delete", rno);
 	}
+
+	/*
+	 * @Override public int selectOne(int bno) { return
+	 * session.selectOne("reply.selectOne", bno); }
+	 */
 }

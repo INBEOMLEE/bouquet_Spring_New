@@ -11,6 +11,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.bouquet.domain.board.BoardDTO;
+import com.bouquet.domain.board.ReplyDTO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -66,5 +67,17 @@ public class BoardDAOImpl implements BoardDAO{
 		
 		return sqlSession.selectOne("board.countArticle", map);
 	}
+
+	/*
+	 * @Override public int replyCntUpdate(int bno, int replycnt) { Map<String,
+	 * Object> map = new HashMap<>(); map.put("bno", bno); map.put("replycnt",
+	 * replycnt); return sqlSession.update("board.replyCntUpdate", map); }
+	 */
+
+	@Override
+	public void updateReplyCnt(HashMap<String, Object> map) {
+		sqlSession.update("board.updateReplyCnt", map);
+	}
+
 
 }

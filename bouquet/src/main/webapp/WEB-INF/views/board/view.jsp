@@ -158,10 +158,10 @@
 	}
 	.comment_box_date {
 		display: inline-block;
-		width: 120px;
+		width: 105px;
 		font-size: 16px;
 		font-weight: 600;
-		padding: 15px;
+		padding: 15px 0;
 	}
 	.comment_box_content {
 		border: 1px solid #A2A2A2;
@@ -337,6 +337,7 @@
 		border: 2px solid #D8B8B6;
 		color: white;
 	}
+	
 </style>
 </head>
 <body>
@@ -526,6 +527,10 @@
 			
 			var content = $('#replyInsert').val();
 			
+			// 텍스트 에어리어 사용할 경우 콘텐츠에서 태그 없애는 코드
+			// var text = content.replace(/[<][^>]*[>]/gi, "");
+			// $('#re_text').val(text);
+			
 			if(content == "<p><br></p>") {
 				$('.view_err_message').css("display", "block");
 				return false;
@@ -534,16 +539,13 @@
 				$("#re_bno").val(bno);
 				
 				$.ajax({
-					url: "replyAdd.bouquet",
+					url: "${path}/reply/create",
 					type: "POST",
-					dataType: "json",
 					data: $("#frm_reply").serialize(),
 					contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-					success: function(data){
-						if(data.result == 1) {
-							comment_list();
-							$("#replyInsert").val("");
-						}
+					success: function(){
+						comment_list();
+						$("#replyInsert").val("");
 					},
 					error: function(){
 						alert("System Error!!!");
@@ -557,14 +559,11 @@
 			var bno = "${bDto.bno}";
 			
 			$.ajax({
-				url: "replyRemove.bouquet",
+				url: "${path}/reply/delete",
 				type: "POST",
-				dataType: "json",
 				data: "rno=" + rno + "&bno=" + bno,
-				success: function(data){
-					if(data.result == 1) {
-						comment_list();
-					}
+				success: function(){
+					comment_list();
 				},
 				error: function(){
 					alert("System Error!!!");

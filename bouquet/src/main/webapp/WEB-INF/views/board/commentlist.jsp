@@ -46,8 +46,8 @@
 			<div class="line"></div>
 			<form action="replyAdd.bouquet" method="POST" name="frm_reply" id="frm_reply">
 				<div class="font_style">작성자</div>
-				<input type="text" class="input_style" id="margin_bottom" name="re_writer" value="${sessionScope.bid}" readonly="readonly">
-				<textarea id="replyInsert" name="re_textarea"></textarea>
+				<input type="text" class="input_style" id="margin_bottom" name="writer" value="${sessionScope.bid}" readonly="readonly">
+				<textarea id="replyInsert" name="content"></textarea>
 				<script type="text/javascript">
 					var oEditors = [];
 					nhn.husky.EZCreator.createInIFrame({
@@ -61,7 +61,8 @@
 				<div class="view_err_message">내용을 입력해주세요.</div>
 				<div class="btn_style">게시글 목록</div>
 				<div class="btn_style float reply_btn" id="margin_right">댓글 등록</div>
-				<input type="hidden" id="re_bno" name="re_bno">
+				<input type="hidden" id="re_bno" name="bno">
+				<!-- <input type="hidden" id="re_text" name="btext"> -->
 			</form>
 		</c:otherwise>
 	</c:choose>
