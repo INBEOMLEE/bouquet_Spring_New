@@ -24,12 +24,12 @@ public class BoardDAOImpl implements BoardDAO{
 
 	@Override
 	public void create(BoardDTO bDto) {
-		
+		sqlSession.insert("board.create", bDto);
 	}
 
 	@Override
 	public void update(BoardDTO bDto) {
-		
+		sqlSession.update("board.update", bDto);
 	}
 
 	@Override

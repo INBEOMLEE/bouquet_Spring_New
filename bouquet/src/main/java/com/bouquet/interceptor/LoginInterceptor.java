@@ -4,8 +4,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.web.servlet.FlashMap;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+import org.springframework.web.servlet.support.RequestContextUtils;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -24,7 +26,31 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 		if(session.getAttribute("bid") == null) {
 			log.info("Interceptor : 로그인이 되어있지 않습니다.");
 			String referer = request.getHeader("referer");
-			response.sendRedirect(referer + "?message=nologin");
+			String uri = request.getRequestURI();
+			
+			// /board/create
+			int index = referer.lastIndexOf("/"); // 6
+			int length = referer.length(); // 12
+			String url = referer.substring(index, length);
+			log.info("수정된 URL : " + url);
+			
+			if(url.equals("/create")) {
+				response.sendRedirect(request.getContextPath() + "/board/list");
+				return false;
+			}
+			
+			
+			
+			// Login 페이지로 이동
+			FlashMap flashMap = RequestContextUtils.getOutputFlashMap(request);
+			flashMap.put("message", "nologin");
+			flashMap.put("uri", uri);
+			log.info(">>>>> URI : " + uri);
+			
+			RequestContextUtils.saveOutputFlashMap(referer, request, response);
+			response.sendRedirect(referer);
+			
+			
 			
 			return false;
 		} else {

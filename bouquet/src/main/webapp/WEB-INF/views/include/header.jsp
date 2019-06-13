@@ -134,7 +134,18 @@
 	</aside>
 	
 	<script type="text/javascript">
+		// LoginIntercepter에서 보내는 메세지
+		var message = '${message}';
+		var uri = '${uri}';
+		
 		$(document).ready(function(){
+			
+			if(message == "nologin") {
+				$('#modal').css('display', 'flex');
+				$('#login_id').focus();
+				$('.err_msg').text('로그인이 필요한 시스템입니다.').css('display', 'block');
+			} 
+			
 			$("#btn_login").click(function(){
 				
 				var id = $.trim($('#login_id').val());
@@ -172,7 +183,11 @@
 					data: "bid="+id+"&bpw="+pw,
 					success: function(data) {
 						if(data == "1") {
-							location.reload();			
+							if(uri == "") {
+								location.reload();
+							} else {
+								location.href = uri;
+							}
 						} else if(data == "-1") {
 							$('#login_id').select();
 							$('.err_msg').text('회원 아이디 또는 비밀번호가 일치하지 않습니다.')
@@ -202,6 +217,7 @@
 				$('#modal').css('display', 'flex');
 				$('#login_id').focus();
 			});
+			
 			$('#modal_close').click(function(){
 				$('.idpw').val("");
 				$('.err_msg').css('display', 'none');
@@ -231,6 +247,7 @@
 					$('.index_header').css('opacity', '1');
 				}
 			});
+			
 			$('#topBtn').click(function(){
 				$('html, body').animate({scrollTop : 0}, 800);
 			});

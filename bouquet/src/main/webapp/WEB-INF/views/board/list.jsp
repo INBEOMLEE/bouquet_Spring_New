@@ -220,6 +220,7 @@ section {
 	animation-name: twinkle;
 	animation-duration: 1.2s;
 	animation-iteration-count: infinite;
+	margin-left: 5px;
 }
 
 @keyframes twinkle { 
@@ -394,23 +395,7 @@ section {
 			});
 			
 			$("#boardAdd").click(function(){
-				$.ajax({
-					url: "registerAjax.bouquet",
-					type: "POST",
-					dataType: "json",
-					success: function(data){
-						if(data.message == "login") {
-							location.href="registerView.bouquet";
-						} else if(data.message == "nologin") {
-							$('#modal').css('display', 'flex');
-							$('.err_msg').text('로그인이 필요한 시스템입니다.')
-										 .css('display', 'block');
-						}
-					},
-					error: function(){
-						alert("System Error!!!");
-					} 
-				});
+				location.href="${path}/board/create";
 			});
 		});
 		

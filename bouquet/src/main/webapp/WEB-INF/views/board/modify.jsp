@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../include/header.jsp" %>
-<c:if test="${sessionScope.loginUser == null}">
+<c:if test="${sessionScope.bid == null}">
 	<script>
 		alert("로그인 하신 후 사용하세요.");
 		location.href="${path}/boardList.bouquet?message=nologin";
@@ -12,7 +12,7 @@
 <head>
 <meta charset="UTF-8">
 <title>BOUQUET : 게시글 수정</title>
-<script type="text/javascript" src="resources/smarteditor/js/service/HuskyEZCreator.js" charset="utf-8"></script>
+<script type="text/javascript" src="${path}/resources/smarteditor/js/service/HuskyEZCreator.js" charset="utf-8"></script>
 <style type="text/css">
 	section {
 		width: 100%;
@@ -76,7 +76,6 @@
 		width: 125px;
 	}
 	.float {
-		float: right;
 		width: 150px;
 		text-align: center;
 		font-size: 20px;
@@ -111,30 +110,35 @@
 	.file_list_filesize {
 		color: #363636;
 	}
+	.update_btn_box {
+		width: 100%;
+		height: auto;
+		text-align: right;
+	}
 </style>
 </head>
 <body>
 	<section>
 		<div class="board_inline">
 			<div class="board_topic">질문 게시판</div>
-			<form action="modifyPlay.bouquet" method="POST" id="frm_bin" name="frm_bin" enctype="multipart/form-data">
+			<form action="${path}/board/update" method="POST" id="frm_bin" name="frm_bin">
 				<div class="font_style">제목</div>
-				<input type="text" class="input_style" id="input_title" name="input_title" value="${bDto.title}">
+				<input type="text" class="input_style" id="input_title" name="title" value="${bDto.title}">
 				<div class="font_style">내용</div>
-				<textarea id="boardUpdate" class="input_content" name="input_content">${bDto.content}</textarea>
+				<textarea id="boardUpdate" class="input_content" name="content">${bDto.content}</textarea>
 				<script type="text/javascript">
 					var oEditors = [];
 					nhn.husky.EZCreator.createInIFrame({
 					 oAppRef: oEditors,
 					 elPlaceHolder: "boardUpdate",
-					 sSkinURI: "<%=request.getContextPath()%>/smarteditor/SmartEditor2Skin.html",
+					 sSkinURI: "${path}/resources/smarteditor/SmartEditor2Skin.html",
 					 fCreator: "createSEditor2"
 					});
 				</script>
 				<div class="register_err_message">내용을 입력해주세요.</div>
 				<div class="font_style">작성자</div>
-				<input type="text" class="input_style" id="input_writer" name="input_writer" value="${sessionScope.loginUser.bid}" readonly="readonly">
-				<input class="board_insert" value="현재 첨부파일">
+				<input type="text" class="input_style" id="input_writer" name="writer" value="${sessionScope.bid}" readonly="readonly">
+				<%-- <input class="board_insert" value="현재 첨부파일">
 					<c:choose>
 						<c:when test="${bDto.filesize > 0}">
 							<div id="file_list" style="display: inline-block;">
@@ -155,26 +159,29 @@
 						</c:when>
 						<c:otherwise>
 						</c:otherwise>
-					</c:choose>
-				<div class="board_insert float" id="update_btn">게시글 수정</div>
-				<div id="file_wrap">
+					</c:choose> --%>
+				<div class="update_btn_box">
+					<div class="board_insert float" id="update_btn">게시글 수정</div>
+				</div>
+				<!-- <div id="file_wrap">
 					<input type="file" name="uploadfile" id="uploadfile" style="display: none">
 					<input type="button" class="btn btn-file board_insert" value="첨부파일 선택">
 					<span class="files" id="file_name" style="height:29px; border: none;">선택된 파일 없음</span>
 					<span id="now_file_size"></span>
 					<i class="fas fa-times" id="close_file_btn" style="display: none"></i>
-				</div>
+				</div> -->
 				
-				<input type="hidden" value="${bno}" name="input_bno">
-				<input type="hidden" value="${bDto.filename}" name="input_basic_filename">
+				<input type="hidden" value="${bDto.bno}" name="bno">
+				<%-- <input type="hidden" value="${bDto.filename}" name="input_basic_filename">
 				<input type="hidden" value="${bDto.filesize}" name="input_basic_filesize">
-				<input type="hidden" value="yes" name="input_check_yn" id="input_check_yn">
+				<input type="hidden" value="yes" name="input_check_yn" id="input_check_yn"> --%>
+				<input type="hidden" id="input_text" name="btext">
 			</form>
 		</div>
 	</section>
 	<script type="text/javascript">
 	$(document).ready(function(){
-		$('.btn-file').click(function(){
+		/* $('.btn-file').click(function(){
 			$('#uploadfile').click();
 		});
 		
@@ -215,13 +222,17 @@
 			$("#now_file_size").text("");
 		});
 		
-		var filename = $('#file_list_filename').text();
+		var filename = $('#file_list_filename').text(); */
 		
 		$('#update_btn').click(function(){
 			oEditors.getById["boardUpdate"].exec("UPDATE_CONTENTS_FIELD", []);
 			
 			var title = $('#input_title').val();
 			var content = $('.input_content').val();
+			
+			// 텍스트 에어리어 사용할 경우 콘텐츠에서 태그 없애는 코드
+			var text = content.replace(/[<][^>]*[>]/gi, "");
+			$('#input_text').val(text);
 			
 			if(title == "" || title.length == 0) {
 				$('.register_err_message').css("display", "block")
@@ -236,7 +247,7 @@
 			$('#frm_bin').submit();
 		});
 		
-		$('.close_file_btn').click(function(){
+		/* $('.close_file_btn').click(function(){
 			$('#file_list_filename').css("color", "#AAA")
 									.css("text-decoration", "line-through");
 			$('.file_list_filesize').css("color", "#AAA")
@@ -254,7 +265,7 @@
 			$('.file_msg').css("display", "none");
 			$('.close_file_btn').css("display", "inline-block");
 			$('#input_check_yn').val("yes");
-		});
+		}); */
 		
 		
 	});

@@ -576,7 +576,7 @@
 		});
 		
 		$(document).on("click", ".update_btn", function(){
-			location.href="updateView.bouquet?bno=${bDto.bno}";
+			location.href="${path}/board/update?bno=${bDto.bno}";
 		});
 		
 	</script>

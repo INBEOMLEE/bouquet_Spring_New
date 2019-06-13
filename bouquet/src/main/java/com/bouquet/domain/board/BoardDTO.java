@@ -25,4 +25,5 @@ public class BoardDTO {
 	private Date regdate;
 	private String filename;
 	private int filesize;
+	private String btext;
 }

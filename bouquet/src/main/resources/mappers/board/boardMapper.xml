@@ -48,7 +48,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                 </if>
                 <if test="search_option == 'content'">
                 	WHERE b.writer = m.bid
-                	AND content LIKE #{keyword}
+                	AND btext LIKE #{keyword}
                 </if>
                 <if test="search_option == 'writer'">
                 	WHERE b.writer = m.bid
@@ -59,7 +59,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				WHERE b.writer = m.bid
 				AND (writer LIKE #{keyword}
 					 OR title LIKE #{keyword}
-					 OR content LIKE #{keyword} )
+					 OR btext LIKE #{keyword} )
 			</otherwise>
 		</choose>	
 	</sql>
@@ -108,5 +108,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			replycnt = replycnt - 1
 		</if>
 		WHERE bno = #{bno}
-	</update>	
+	</update>
+	
+	<!-- 게시글 등록 -->
+	<insert id="create" parameterType="com.bouquet.domain.board.BoardDTO">
+		INSERT INTO tbl_board (bno, title, content, writer, btext)
+		VALUES (seq_board.NEXTVAL, #{title}, #{content}, #{writer}, #{btext})
+	</insert>	
+	
+	<!-- 게시글 수정 -->
+	<update id="update" parameterType="com.bouquet.domain.board.BoardDTO">
+		UPDATE tbl_board
+		SET title = #{title},
+		    content = #{content},
+		    btext = #{btext}
+	    WHERE bno = #{bno}
+	</update>
 </mapper>

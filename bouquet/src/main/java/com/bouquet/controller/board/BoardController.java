@@ -75,4 +75,42 @@ public class BoardController {
 		return "/board/view";
 	}
 	
+	// 게시글 등록 페이지 이동
+	@RequestMapping (value = "/create", method = RequestMethod.GET)
+	public String createView() {
+		log.info(">>>>> 게시글 등록 페이지 출력");
+		
+		return "/board/register";
+	}
+	
+	// 게시글 등록 페이지 이동
+	@RequestMapping (value = "/create", method = RequestMethod.POST)
+	public String createPlay(BoardDTO bDto) {
+		log.info(">>>>> 게시글 등록 구현");
+		
+		service.create(bDto);
+		
+		return "redirect:/board/list";
+	}
+	
+	// 게시글 수정 페이지 이동
+	@RequestMapping (value = "/update", method = RequestMethod.GET)
+	public String updateView(int bno, Model model) {
+		log.info(">>>>> 게시글 페이지 출력");
+		log.info("★★★★★★★★★★★★★★★★ " + bno);
+		BoardDTO bDto = service.read(bno);
+		model.addAttribute("bDto", bDto);
+		
+		return "/board/modify";
+	}
+	
+	// 게시글 수정 페이지 이동
+	@RequestMapping (value = "/update", method = RequestMethod.POST)
+	public String updatePlay(BoardDTO bDto) {
+		log.info(">>>>> 게시글 수정 구현");
+		service.update(bDto);
+		
+		return "redirect:/board/list";
+	}
+	
 }

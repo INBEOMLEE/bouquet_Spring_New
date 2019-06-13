@@ -21,12 +21,12 @@ public class BoardServiceImpl implements BoardService{
 
 	@Override
 	public void create(BoardDTO bDto) {
-		
+		bDao.create(bDto);
 	}
 
 	@Override
 	public void update(BoardDTO bDto) {
-		
+		bDao.update(bDto);
 	}
 
 	@Override
