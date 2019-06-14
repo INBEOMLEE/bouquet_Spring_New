@@ -31,7 +31,7 @@ public class BoardServiceImpl implements BoardService{
 
 	@Override
 	public void delete(int bno) {
-		
+		bDao.delete(bno);
 	}
 
 	@Override

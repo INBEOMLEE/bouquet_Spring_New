@@ -4,7 +4,7 @@
 <c:if test="${sessionScope.bid == null}">
 	<script>
 		alert("로그인 하신 후 사용하세요.");
-		location.href="${path}/boardList.bouquet?message=nologin";
+		location.href="${path}/board/list";
 	</script>
 </c:if>
 <!DOCTYPE html>

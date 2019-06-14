@@ -572,7 +572,7 @@
 		});
 		
 		$(document).on("click", ".yes_btn", function(){
-			location.href="removePlay.bouquet?bno=${bDto.bno}&filename=${bDto.filename}";
+			location.href="${path}/board/delete?bno=${bDto.bno}";
 		});
 		
 		$(document).on("click", ".update_btn", function(){

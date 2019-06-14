@@ -4,8 +4,10 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -90,27 +92,38 @@ public class BoardController {
 		
 		service.create(bDto);
 		
-		return "redirect:/board/list";
+		return "redirect:/board/view?bno=" + bDto.getBno();
 	}
 	
 	// 게시글 수정 페이지 이동
 	@RequestMapping (value = "/update", method = RequestMethod.GET)
-	public String updateView(int bno, Model model) {
+	public String updateView(int bno, Model model, HttpServletRequest request, HttpSession session) {
 		log.info(">>>>> 게시글 페이지 출력");
-		log.info("★★★★★★★★★★★★★★★★ " + bno);
 		BoardDTO bDto = service.read(bno);
 		model.addAttribute("bDto", bDto);
+		
+		session.removeAttribute("URI");
+		session.setAttribute("URI", request.getHeader("referer"));
 		
 		return "/board/modify";
 	}
 	
-	// 게시글 수정 페이지 이동
+	// 게시글 수정 기능 구현
 	@RequestMapping (value = "/update", method = RequestMethod.POST)
-	public String updatePlay(BoardDTO bDto) {
-		log.info(">>>>> 게시글 수정 구현");
+	public String updatePlay(BoardDTO bDto, HttpServletRequest request, HttpSession session) {
+		log.info(">>>>> 게시글 수정 기능 구현");
 		service.update(bDto);
 		
-		return "redirect:/board/list";
+		return "redirect:" + session.getAttribute("URI");
+	}
+	
+	// 게시글 삭제 기능 구현
+	@RequestMapping (value = "/delete", method = RequestMethod.GET)
+	public String deleteView(int bno) {
+		log.info(">>>>> 게시글 삭제 기능 구현");
+		service.delete(bno);
+		
+		return "redirect:/";
 	}
 	
 }
